@@ -64,4 +64,8 @@ Some code is reused from https://github.com/75a/fake-captcha
 * Perhaps this could be used within an `iframe` element, or easily embedded as a widget _anywhere_.
 * Perhaps this could have a bit more server-side control to check the client's user-agent and do things differently, or adjust the payload appropriately.
 
+<<<<<<< HEAD
 **Also, _EdyUkAYshuNaL PoRpoiSes only!!!11_** 🐬
+=======
+**Also, _EdyUkAYshuNaL PoRpoiSes only!!!11_** 🐬
+>>>>>>> 70d68e84d2878ed8cf0acbdf6e525795de1579be
