@@ -26,6 +26,9 @@ Tonmoy Jitu also wrote a [sweet article](https://denwp.com/anatomy-of-a-lumma-st
 
 ## 🎨 Recreation
 
+> ![WARNING]
+> The code is bad and scrappy.  
+
 Considering the original is meant to emulate a [reCAPTCHA](https://www.google.com/recaptcha/about/) form, I thought this _"tradecraft"_ (if you dare to call it that) could be improved. 😈
 
 Why not make it look as close to the real reCAPTCHA button as possible?
