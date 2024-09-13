@@ -50,7 +50,7 @@ The HTA file also gives you an opportunity for more convincing charade, too, pot
 So this recreation has some extra perks:
 
 * Looks and feels like "real" reCAPTCHA (_image from the official Google site_)
-* Validation within the Windows Run dialogue box to "hide" the malicious command (✅ _"I am not a robot - reCAPTCHA Verification ID: 7624"_)
+* Validation in the Run box to "hide" the command (✅ _"I am not a robot - reCAPTCHA Verification ID: 7624"_)
 * Disabled "Verify" button to further encourage users to complete the copy-paste steps. 🚫
 * Fleshed out phish with the follow-up windows "failed to verify"
 * Clears the clipboard so the payload command is removed.
@@ -64,8 +64,4 @@ Some code is reused from https://github.com/75a/fake-captcha
 * Perhaps this could be used within an `iframe` element, or easily embedded as a widget _anywhere_.
 * Perhaps this could have a bit more server-side control to check the client's user-agent and do things differently, or adjust the payload appropriately.
 
-<<<<<<< HEAD
 **Also, _EdyUkAYshuNaL PoRpoiSes only!!!11_** 🐬
-=======
-**Also, _EdyUkAYshuNaL PoRpoiSes only!!!11_** 🐬
->>>>>>> 70d68e84d2878ed8cf0acbdf6e525795de1579be
