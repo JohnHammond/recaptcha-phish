@@ -63,5 +63,6 @@ Some code is reused from https://github.com/75a/fake-captcha
 
 * Perhaps this could be used within an `iframe` element, or easily embedded as a widget _anywhere_.
 * Perhaps this could have a bit more server-side control to check the client's user-agent and do things differently, or adjust the payload appropriately.
+* Perhaps this could be transformed into an easy Github Pages or Vercel tidbit to readily have a public domain and easy tooling
 
 **Also, _EdyUkAYshuNaL PoRpoiSes only!!!11_** 🐬
