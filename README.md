@@ -1,5 +1,24 @@
 # reCAPTCHA Phish
 
+i want to make it more phishy 
+and i made it  cross platform it work in linux win mac
+you can add cloudflare dns to make it more phishy
+# requirements
+python
+# installing requirements
+
+```python
+ python3 -m pip install flask
+```
+# linux demo
+
+https://github.com/user-attachments/assets/3d22d0c5-0cc1-4c20-8ec0-0015436c2b4e
+
+# win demo
+
+https://github.com/user-attachments/assets/c930c8f9-4c1c-4222-9d5c-3ab51987c5a6
+
+
 > John Hammond | September 13, 2024
 
 ------------------------------
